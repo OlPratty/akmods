@@ -108,6 +108,7 @@ set ${CI+-x} -euo pipefail
 /tmp/build-kmod-gcadapter_oc.sh || echo "SKIPPED: gcadapter_oc"
 /tmp/build-kmod-zenergy.sh || echo "SKIPPED: zenergy"
 /tmp/build-kmod-ryzen-smu.sh || echo "SKIPPED: ryzen-smu"
+/tmp/build-kmod-aorus-laptop.sh || echo "SKIPPED: aorus-laptop"
 /tmp/build-kmod-evdi.sh || echo "SKIPPED: evdi"
 /tmp/build-kmod-system76.sh || echo "SKIPPED: system76"
 /tmp/build-kmod-system76-io.sh || echo "SKIPPED: system76-io"
