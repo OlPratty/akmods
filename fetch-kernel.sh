@@ -162,6 +162,11 @@ else
     fi
 fi
 
+echo "=== Runner key/cert check ==="
+openssl rsa  -in "$PRIVATE_KEY_PATH" -noout -modulus | openssl md5
+openssl x509 -in "$PUBLIC_KEY_PATH"  -noout -modulus | openssl md5
+openssl x509 -in "$PUBLIC_KEY_PATH" -subject -issuer -noout
+
 # Sign Kernel with Key
 sbsign --cert "$PUBLIC_KEY_PATH" --key "$PRIVATE_KEY_PATH" /usr/lib/modules/"${kernel_version}"/vmlinuz --output /usr/lib/modules/"${kernel_version}"/vmlinuz
 
