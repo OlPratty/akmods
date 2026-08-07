@@ -1,6 +1,5 @@
 set unstable := true
 set dotenv-load := true
-set lists
 
 podman := which('podman') || require('podman-remote')
 just := just_executable()
