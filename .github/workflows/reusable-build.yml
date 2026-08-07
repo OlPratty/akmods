@@ -125,13 +125,12 @@ jobs:
       - name: Build Image
         run: just build
 
-      - name: Push and Sign Image
+      - name: Push Image
         if: contains(fromJson('["schedule", "merge_group"]'), github.event_name) || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
         run: |
           just login
           just push
         env:
-          COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
           REGISTRY_ACTOR: ${{ github.actor }}
           REGISTRY_TOKEN: ${{ github.token }}
 
@@ -223,7 +222,7 @@ jobs:
     name: Verify Published Signatures and Provenance
     runs-on: ubuntu-latest
     needs: [manifest]
-    if: contains(fromJson('["schedule", "workflow_dispatch", "merge_group"]'), github.event_name)
+    if: ${{ false }}
     permissions:
       actions: read
       attestations: write
