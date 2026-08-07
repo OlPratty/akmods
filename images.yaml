@@ -23,7 +23,7 @@ arch-only-x86: &arch-only-x86
     - x86_64
 
 akmods-base: &akmods-base
-  org: ublue-os
+  org: OlPratty
   registry: ghcr.io
   repo: akmods
   transport: docker://
