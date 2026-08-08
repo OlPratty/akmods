@@ -13,8 +13,14 @@ on:
     paths-ignore:
       - '**.md'
   schedule:
-    - cron: '07 0 * * *'  # 0007 UTC everyday
+    - cron: '03 0 * * *'  # 0003 UTC everyday
   workflow_dispatch:
+    inputs:
+      ogc_kernel_version:
+        description: "Exact OGC kernel release, e.g. 7.1.5-ogc5.1.fc44.x86_64"
+        required: false
+        default: ""
+        type: string
 jobs:
   cache_kernel_coreos-testing_44:
     name: Cache coreos-testing (44)
@@ -28,6 +34,7 @@ jobs:
       architecture: '["aarch64","x86_64"]'
       kernel_flavor: coreos-testing
       version: 44
+      ogc_kernel_version: ${{ inputs.ogc_kernel_version || '' }}
   build-coreos-testing_44_common:
     name: Build common coreos-testing (44)
     uses: ./.github/workflows/reusable-build.yml

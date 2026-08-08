@@ -9,3 +9,9 @@ on:
   schedule:
     - cron: '05 0 * * *'  # 0005 UTC everyday
   workflow_dispatch:
+    inputs:
+      ogc_kernel_version:
+        description: "Exact OGC kernel release, e.g. 7.1.5-ogc5.1.fc44.x86_64"
+        required: false
+        default: ""
+        type: string

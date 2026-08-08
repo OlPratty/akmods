@@ -13,8 +13,14 @@ on:
     paths-ignore:
       - '**.md'
   schedule:
-    - cron: '01 0 * * *'  # 0001 UTC everyday
+    - cron: '22 0 * * *'  # 0022 UTC everyday
   workflow_dispatch:
+    inputs:
+      ogc_kernel_version:
+        description: "Exact OGC kernel release, e.g. 7.1.5-ogc5.1.fc44.x86_64"
+        required: false
+        default: ""
+        type: string
 jobs:
   cache_kernel_longterm-6-18_44:
     name: Cache longterm-6.18 (44)
@@ -28,6 +34,7 @@ jobs:
       architecture: '["aarch64","x86_64"]'
       kernel_flavor: longterm-6.18
       version: 44
+      ogc_kernel_version: ${{ inputs.ogc_kernel_version || '' }}
   build-longterm-6-18_44_nvidia-lts:
     name: Build nvidia-lts longterm-6.18 (44)
     uses: ./.github/workflows/reusable-build.yml

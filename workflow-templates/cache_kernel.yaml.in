@@ -10,3 +10,4 @@
       architecture: '%%ARCHITECTURE%%'
       kernel_flavor: %%KERNEL_FLAVOR%%
       version: %%VERSION%%
+      ogc_kernel_version: ${{ inputs.ogc_kernel_version || '' }}

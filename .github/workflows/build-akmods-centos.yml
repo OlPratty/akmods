@@ -13,8 +13,14 @@ on:
     paths-ignore:
       - '**.md'
   schedule:
-    - cron: '08 0 * * *'  # 0008 UTC everyday
+    - cron: '12 0 * * *'  # 0012 UTC everyday
   workflow_dispatch:
+    inputs:
+      ogc_kernel_version:
+        description: "Exact OGC kernel release, e.g. 7.1.5-ogc5.1.fc44.x86_64"
+        required: false
+        default: ""
+        type: string
 jobs:
   cache_kernel_centos_10:
     name: Cache centos (10)
@@ -28,6 +34,7 @@ jobs:
       architecture: '["aarch64","x86_64"]'
       kernel_flavor: centos
       version: 10
+      ogc_kernel_version: ${{ inputs.ogc_kernel_version || '' }}
   build-centos_10_nvidia-lts:
     name: Build nvidia-lts centos (10)
     uses: ./.github/workflows/reusable-build.yml
