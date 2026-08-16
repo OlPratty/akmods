@@ -1,5 +1,5 @@
 name: build-akmod
-run-name: "Build ${{ inputs.akmods_target != 'common' && format('akmods-{0}', inputs.akmods_target) || 'akmods' }}:${{ inputs.kernel_flavor }}-${{ inputs.version }}"
+run-name: "Build aorus-kmods:${{ inputs.kernel_flavor }}-${{ inputs.version }}"
 on:
   workflow_call:
     inputs:
@@ -135,7 +135,7 @@ jobs:
           REGISTRY_TOKEN: ${{ github.token }}
 
   manifest:
-    name: "Generate ${{ inputs.akmods_target != 'common' && format('akmods-{0}', inputs.akmods_target) || 'akmods' }}:${{ inputs.kernel_flavor }}-${{ inputs.version }} Manifest"
+    name: "Generate aorus-kmods:${{ inputs.kernel_flavor }}-${{ inputs.version }} Manifest"
     runs-on: ubuntu-latest
     needs: [build-akmods]
     outputs:
@@ -190,7 +190,7 @@ jobs:
         id: digest
         if: contains(fromJson('["schedule", "workflow_dispatch", "merge_group"]'), github.event_name)
         run: |
-          IMAGE_NAME="${{ inputs.akmods_target != 'common' && format('akmods-{0}', inputs.akmods_target) || 'akmods' }}"
+          IMAGE_NAME="aorus-kmods"
           MANIFEST_TAG="${{ inputs.kernel_flavor }}-${{ inputs.version }}"
           KERNEL_RELEASE="$(jq -r '.kernel_release' < "$GITHUB_WORKSPACE/build/${{ env.AKMODS_KERNEL }}-${{ env.AKMODS_VERSION }}/KCWD/rpms/cache.json" | sed 's/\.x86_64\|\.aarch64//g')"
           MANIFEST_TAG_KERNEL="${MANIFEST_TAG}-${KERNEL_RELEASE}"

@@ -94,6 +94,18 @@ RUN --mount=type=cache,dst=/var/cache/dnf \
 /tmp/build-kmod-xone.sh
 RUNEOF
 
+#elif defined AORUS
+# /*
+# AORUS laptop akmod
+# */
+COPY build_files/extra/build-kmod-aorus-laptop.sh /tmp/build-kmod-aorus-laptop.sh
+RUN --mount=type=cache,dst=/var/cache/dnf \
+    --mount=type=cache,dst=/var/cache/libdnf5 \
+    bash <<'RUNEOF'
+set ${CI+-x} -euo pipefail
+/tmp/build-kmod-aorus-laptop.sh
+RUNEOF
+
 #elif defined EXTRA
 # /*
 # extra akmods
