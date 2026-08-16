@@ -10,8 +10,7 @@ KCWD := shell('mkdir -p $1 && echo $1', version_cache / 'KCWD')
 KCPATH := shell('mkdir -p $1 && echo $1', env('KCPATH', KCWD / 'rpms'))
 version_json := KCPATH / 'cache.json'
 builder := if kernel_flavor =~ 'centos' { 'quay.io/centos/centos:' + version } else { 'quay.io/fedora/fedora:' + version }
-ogc_image := "ghcr.io/opengamingcollective/kernel-packages-fedora:" + env('AKMODS_OGC_TAG', 'latest-fc' + version)
-
+ogc_image := "ghcr.io/opengamingcollective/kernel-packages-fedora:" + env('AKMODS_OGC_TAG', '7.2-rc7-ogc3.1-fc' + version)
 
 # Inputs
 
@@ -36,10 +35,10 @@ zfs_configure_args := env(
     if zfs_linux_experimental == 'true' { '--enable-linux-experimental' } else { '' }
 )
 
-# Kernel Pin for coreos-stable (Maximum Version Cap)
-# Set to a specific kernel version (e.g., '6.17.12') to cap coreos-stable builds
-# Set to empty string '' for no pin (use latest kernel from upstream fedora-coreos:stable)
-# This gives maintainers a clear, version-controlled view of the current pin state
+# Kernel pin for coreos-stable (maximum version cap)
+# Empty '' follows upstream fedora-coreos:stable.
+# Set to major.minor.patch (e.g. '6.17.12') to hold all coreos-stable targets.
+# When to use this: README.md#pinning-the-coreos-stable-kernel
 coreos_stable_kernel_pin := ''
 
 # Check if valid
