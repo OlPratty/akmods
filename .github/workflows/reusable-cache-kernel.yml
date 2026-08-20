@@ -88,8 +88,12 @@ jobs:
           set -euo pipefail
 
           KERNEL="${{ inputs.ogc_kernel_version }}"
-          TAG="$(echo "$KERNEL" | sed -E "s/\.fc${AKMODS_VERSION}(\.[^.]+)?$/-fc${AKMODS_VERSION}/")"
-
+          TAG="$(
+            echo "$KERNEL" \
+              | sed -E \
+                  -e 's/^([0-9]+\.[0-9]+)\.0-/\1-/' \
+                  -e "s/\.fc${AKMODS_VERSION}(\.[^.]+)?$/-fc${AKMODS_VERSION}/"
+          )"
           if [[ "$TAG" == "$KERNEL" ]]; then
             echo "Could not convert kernel version '$KERNEL' to an OGC image tag" >&2
             exit 1
