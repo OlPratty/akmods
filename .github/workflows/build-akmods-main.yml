@@ -12,8 +12,6 @@ on:
       - main
     paths-ignore:
       - '**.md'
-  schedule:
-    - cron: '27 0 * * *'  # 0027 UTC everyday
   workflow_dispatch:
     inputs:
       ogc_kernel_version:
